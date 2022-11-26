@@ -1,10 +1,18 @@
-image: debian:bullseye
+#image: debian:bullseye
 
 
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
   - init: echo 'init script' # runs during prebuild
-    command: echo 'start script'
+    command: |
+      echo 'start script'
+      sudo apt update
+      sudo apt install r-base chromium -y
+      R -e 'install.packages("languageserver")'
+      R -e 'install.packages("posterdown")'
+      R -e 'install.packages("rticles")'
+      R -e 'remotes::install_github('rstudio/pagedown')'
+  
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
